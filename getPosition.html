@@ -8,8 +8,8 @@
 </head>
 
 <body>
-    <div id="geoloc"></div>
-    <script>
+        <div id="map_canvas"></div>
+<!--     <script>
     function getElem(id) {
         return typeof id === 'string' ? document.getElementById(id) : id;
     }
@@ -28,8 +28,12 @@
     } else {
         getElem('geo_loc').innerHTML = "您当前使用的浏览器不支持Geolocation服务";
     }
-    </script>
- <!--    <script>
+    </script> -->
+    <script>
+    function getElem(id) {
+        return typeof id === 'string' ? document.getElementById(id) : id;
+    }
+
     function success(position) {
         var mapcanvas = document.createElement('div');
         mapcanvas.id = 'mapcanvas';
@@ -59,7 +63,7 @@
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(success);
     }
-    </script> -->
+    </script>
 </body>
 
 </html>
