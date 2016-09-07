@@ -143,14 +143,20 @@
     img.addEventListener('touchstart', function(e) {
         var touch = event.targetTouches[0];
         down_event(touch);
+        e.preventDefault();
+
     });
     img.addEventListener('touchend', function(e) {
         var touch = event.targetTouches[0];
         up_event(touch);
+        e.preventDefault();
+
     });
     img.addEventListener('touchmove', function(e) {
         var touch = event.targetTouches[0];
         move_event(touch);
+        e.preventDefault();
+
     });
     </script>
 </body>
