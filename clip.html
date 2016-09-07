@@ -9,6 +9,7 @@
     * {
         padding: 0;
         margin: 0;
+        -webkit-overflow-scrolling: touch;
     }
     
     html,
@@ -38,11 +39,12 @@
         position: absolute;
         left: 0;
         top: 0;
-        -webkit-overflow-scrolling:touch;
     }
-    #footer-btn{
+    
+    #footer-btn {
         height: 38px;
     }
+    
     #btn {
         display: inline-block;
         border: 1px solid pink;
@@ -108,16 +110,6 @@
 
     function move_event(e) {
         if (isTouchDown) {
-            // console.log(imgRight + "  " + boxRight);
-
-            // var ss;
-            // if (imgRight < boxRight || imgLeft > boxLeft) {
-            //     setTimeout(function() {
-            //         ss = boxRight - imgRight;
-            //         img.style.left = imgLeft + ss;
-            //     }, 1000);
-            //     return;
-            // }
             distance.x = e.clientX - firstpoint.x;
             distance.y = e.clientY - firstpoint.y;
             img.style.left = imgLeft + distance.x + "px";
