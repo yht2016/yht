@@ -8,8 +8,14 @@
 
 <body>
     <div id="map_canvas"></div>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-    <!--     <script>
+    <div id="allmap"></div>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=您的密钥"></script>
+    <script>
+    var point = {
+        x: 0,
+        y: 0
+    }
+
     function getElem(id) {
         return typeof id === 'string' ? document.getElementById(id) : id;
     }
@@ -17,6 +23,8 @@
     function show_it(lat, lon) {
         var str = '您当前的位置，纬度：' + lat + '，经度：' + lon;
         getElem('geoloc').innerHTML = str;
+        point.x = lat;
+        point.y = lon;
     }
 
     if (navigator.geolocation) {
@@ -28,8 +36,13 @@
     } else {
         getElem('geo_loc').innerHTML = "您当前使用的浏览器不支持Geolocation服务";
     }
-    </script> -->
-    <script>
+    var map = new BMap.Map("allmap"); // 创建Map实例
+    map.centerAndZoom(new BMap.Point(point.x, point.y), 11); // 初始化地图,设置中心点坐标和地图级别
+    map.addControl(new BMap.MapTypeControl()); //添加地图类型控件
+    map.setCurrentCity("福建"); // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+    </script>
+    <!--  <script>
     function getElem(id) {
         return typeof id === 'string' ? document.getElementById(id) : id;
     }
@@ -63,7 +76,7 @@
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(success);
     }
-    </script>
+    </script> -->
 </body>
 
 </html>

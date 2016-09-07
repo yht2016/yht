@@ -1,202 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="zh-CN" id="index">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>jQuery苹果系统向左滑动删除特效 - 站长素材</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<link rel="stylesheet" href="css/style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<meta name="keywords" content="">
+<meta name="description" content="">
+<title>图片裁剪</title>
 <style>
-.behind {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 0;
-	right: 0;
+body {
+	margin: 0;
+	text-align: center;
 }
-.behind a.ui-btn {
-	width: 68px;
-	margin: 0px;
-	float: right;
-	border: none;
+#clipArea {
+	margin: 20px;
+	height: 300px;
 }
-.behind a.delete-btn, .behind a.delete-btn:active, .behind a.delete-btn:visited, .behind a.delete-btn:focus, .behind a.delete-btn:hover {
-	color: white;
-	background-color: red;
-	text-shadow: none;
+#file,
+#clipBtn {
+	margin: 20px;
 }
-.behind a.ui-btn.pull-left {
-	float: left;
-}
-.behind a.edit-btn, .behind a.edit-btn:active, .behind a.edit-btn:visited, .behind a.edit-btn:focus, .behind a.edit-btn:hover {
-	color: white;
-	background-color: orange;
-	text-shadow: none;	
+#view {
+	margin: 0 auto;
+	width: 200px;
+	height: 200px;
 }
 </style>
 </head>
+<body ontouchstart="">
+<div id="clipArea"></div>
+<input type="file" id="file">
+<button id="clipBtn">截取</button>
+<div id="view"></div>
 
-<body>
-
-<div id="container">
-	<div data-role="page">
-		<div data-role="header" data-position="fixed">
-			<h1>滑动删除</h1>
-		</div>
-		<div data-role="content">
-			<ul data-role="listview" class="swipe-delete">
-				<li>
-					<div class="behind">
-						<a href="#" class="ui-btn delete-btn">Delete</a>
-					</div>
-					<a href="#">item 1</a>
-				</li>
-				<li>
-					<div class="behind">
-						<a href="#" class="ui-btn delete-btn">Delete</a>
-					</div>
-					<a href="#">item 2</a>
-				</li>
-				<li>
-					<div class="behind">
-						<a href="#" class="ui-btn delete-btn">Delete</a>
-					</div>
-					<a href="#">item 3</a>
-				</li>
-				<li>
-					<div class="behind">
-						<a href="#" class="ui-btn delete-btn">Delete</a>
-					</div>
-					<a href="#">item 4</a>
-				</li>
-				<li>
-					<div class="behind">
-						<a href="#" class="ui-btn delete-btn">Delete</a>
-					</div>
-					<a href="#">item 5</a>
-				</li>
-				<li>
-					<div class="behind">
-						<a href="#" class="ui-btn delete-btn">Delete</a>
-					</div>
-					<a href="#">item 6</a>
-				</li>
-				<li>
-					<div class="behind">
-						<a href="#" class="ui-btn delete-btn">Delete</a>
-					</div>
-					<a href="#">item 7</a>
-				</li>
-				<li>
-					<div class="behind">
-						<a href="#" class="ui-btn delete-btn">Delete</a>
-					</div>
-					<a href="#">item 8</a>
-				</li>
-				<li>
-					<div class="behind">
-						<a href="#" class="ui-btn delete-btn">Delete</a>
-					</div>
-					<a href="#">item 9</a>
-				</li>
-				<li>
-					<div class="behind">
-						<a href="#" class="ui-btn delete-btn">Delete</a>
-					</div>
-					<a href="#">item 10</a>
-				</li>
-				<li>
-					<div class="behind">
-						<a href="#" class="ui-btn delete-btn">Delete</a>
-					</div>
-					<a href="#">item 11</a>
-				</li>
-				<li>
-					<div class="behind">
-						<a href="#" class="ui-btn delete-btn">Delete</a>
-					</div>
-					<a href="#">item 12</a>
-				</li>
-				<li>
-					<div class="behind">
-						<a href="#" class="ui-btn delete-btn">Delete</a>
-					</div>
-					<a href="#">item 13</a>
-				</li>
-				<li>
-					<div class="behind">
-						<a href="#" class="ui-btn delete-btn">Delete</a>
-					</div>
-					<a href="#">适用浏览器：360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗. 不支持IE8及以下浏览器。</a>
-				</li>
-				<li>
-					<div class="behind">
-						<a href="#" class="ui-btn delete-btn">Delete</a>
-					</div>
-					<a href="#">来源：站长素材</a>
-				</li>
-			</ul>
-		</div>
-	</div>
-</div>
-
-<script type="text/javascript" src="js/jquery-1.10.0.min.js"></script>
-<script type="text/javascript" src="js/jquery.mobile-1.4.3.min.js"></script>
-<script type="text/javascript">
-$(function() {
-
-    function prevent_default(e) {
-        e.preventDefault();
-    }
-
-    function disable_scroll() {
-        $(document).on('touchmove', prevent_default);
-    }
-
-    function enable_scroll() {
-        $(document).unbind('touchmove', prevent_default)
-    }
-
-    var x;
-    $('.swipe-delete li > a')
-        .on('touchstart', function(e) {
-            console.log(e.originalEvent.pageX)
-            $('.swipe-delete li > a').css('left', '0px') // close em all
-            $(e.currentTarget).addClass('open')
-            x = e.originalEvent.targetTouches[0].pageX // anchor point
-        })
-        .on('touchmove', function(e) {
-            var change = e.originalEvent.targetTouches[0].pageX - x
-            change = Math.min(Math.max(-100, change), 0) // restrict to -100px left, 0px right
-            e.currentTarget.style.left = change + 'px'
-            if (change < -10) disable_scroll() // disable scroll once we hit 10px horizontal slide
-        })
-        .on('touchend', function(e) {
-            var left = parseInt(e.currentTarget.style.left)
-            var new_left;
-            if (left < -35) {
-                new_left = '-100px'
-            } else if (left > 35) {
-                new_left = '100px'
-            } else {
-                new_left = '0px'
-            }
-            // e.currentTarget.style.left = new_left
-            $(e.currentTarget).animate({left: new_left}, 200)
-            enable_scroll()
-        });
-
-    $('li .delete-btn').on('touchend', function(e) {
-        e.preventDefault()
-        $(this).parents('li').slideUp('fast', function() {
-            $(this).remove()
-        })
-    })
-
+<script src="js/jquery-3.0.0.min.js"></script>
+<script src="js/iscroll-zoom.js"></script>
+<script src="js/hammer.js"></script>
+<script src="js/lrz.all.bundle.js"></script>
+<script src="js/PhotoClip.js"></script>
+<script>
+var clipArea = new PhotoClip("#clipArea", {
+	size: [260, 260],
+	outputSize: [640, 640],
+	file: "#file",
+	//img: "img/mm.jpg",
+	view: "#view",
+	ok: "#clipBtn",
+	loadStart: function() {
+		console.log("照片读取中");
+	},
+	loadComplete: function() {
+		console.log("照片读取完成");
+	},
+	clipFinish: function(dataURL) {
+		console.log(dataURL);
+	}
 });
+//clipArea.destroy(); // 销毁
+clipArea.setImg("img/mm.jpg");
 </script>
 
 </body>
 </html>
-
