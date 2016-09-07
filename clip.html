@@ -10,6 +10,7 @@
         padding: 0;
         margin: 0;
         -webkit-overflow-scrolling: touch;
+        box-sizing: border-box;
     }
     
     html,
@@ -85,11 +86,10 @@
 
     var boxWidth = objbox.offsetWidth;
     var boxHeight = objbox.offsetHeight;
-    var boxLeft = objbox.offsetLeft - 51;
-    var boxTop = objbox.offsetTop - 51;
+    var boxLeft = objbox.offsetLeft-boxWidth/2;
+    var boxTop = objbox.offsetTop-boxWidth/2;
     var boxRight = boxLeft + boxWidth;
     var boxBottom = boxTop + boxHeight;
-
     btn.onclick = function() {
         boxLeft -= imgLeft;
         boxTop -= imgTop;
