@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+    <style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    
+    html,
+    body {
+        height: 100%;
+    }
+    
+    #demo {
+        width: 100%;
+        height: 70%;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    #small-box {
+        width: 100px;
+        height: 100px;
+        border: 1px solid #fff;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        pointer-events: none;
+    }
+    
+    img {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    #footer-btn{
+        height: 38px;
+    }
+    #btn {
+        display: inline-block;
+        border: 1px solid pink;
+        height: 38px;
+        line-height: 38px;
+        padding: 0 15px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="demo">
+        <img src="tou-bg.png" />
+        <div id="small-box"></div>
+    </div>
+    <div id="footer-btn">
+        <span id="btn">确定</span>
+    </div>
+    <script>
+    var img = document.getElementsByTagName("img")[0];
+    var objbox = document.getElementById("small-box");
+    var btn = document.getElementById("btn");
+    var imgLeft = img.getBoundingClientRect().left;
+    var imgTop = img.getBoundingClientRect().top;
+    var imgRight = img.getBoundingClientRect().right;
+
+
+
+    var isTouchDown = false;
+    var firstpoint = {
+        x: 0,
+        y: 0
+    };
+    var distance = {
+        x: 0,
+        y: 0
+    };
+
+    var boxWidth = objbox.offsetWidth;
+    var boxHeight = objbox.offsetHeight;
+    var boxLeft = objbox.offsetLeft - 51;
+    var boxTop = objbox.offsetTop - 51;
+    var boxRight = boxLeft + boxWidth;
+    var boxBottom = boxTop + boxHeight;
+
+    btn.onclick = function() {
+        boxLeft -= imgLeft;
+        boxTop -= imgTop;
+        boxRight -= imgLeft;
+        boxBottom -= imgTop;
+        img.style.clip = "rect(" + boxTop + "px " + boxRight + "px " + boxBottom + "px " + boxLeft + "px)";
+    }
+
+    function down_event(e) {
+        isTouchDown = true;
+        firstpoint.x = e.clientX;
+        firstpoint.y = e.clientY;
+    }
+
+    function up_event(e) {
+        isTouchDown = false;
+    }
+
+    function move_event(e) {
+        if (isTouchDown) {
+            // console.log(imgRight + "  " + boxRight);
+
+            // var ss;
+            // if (imgRight < boxRight || imgLeft > boxLeft) {
+            //     setTimeout(function() {
+            //         ss = boxRight - imgRight;
+            //         img.style.left = imgLeft + ss;
+            //     }, 1000);
+            //     return;
+            // }
+            distance.x = e.clientX - firstpoint.x;
+            distance.y = e.clientY - firstpoint.y;
+            img.style.left = imgLeft + distance.x + "px";
+            img.style.top = imgTop + distance.y + "px";
+            imgLeft = img.getBoundingClientRect().left;
+            imgTop = img.getBoundingClientRect().top;
+            imgRight = img.getBoundingClientRect().right;
+
+            firstpoint.x = e.clientX;
+            firstpoint.y = e.clientY;
+
+
+        }
+    }
+    img.onmousedown = function(e) {
+        down_event(e);
+        e.preventDefault();
+    }
+    img.onmouseup = function(e) {
+        up_event(e);
+        e.preventDefault();
+    }
+    img.onmousemove = function(e) {
+        move_event(e);
+        e.preventDefault();
+    }
+    img.onmouseout = function(e) {
+        up_event(e);
+        e.preventDefault();
+    }
+    img.addEventListener('touchstart', function(e) {
+        var touch = event.targetTouches[0];
+        down_event(touch);
+    });
+    img.addEventListener('touchend', function(e) {
+        var touch = event.targetTouches[0];
+        up_event(touch);
+    });
+    img.addEventListener('touchmove', function(e) {
+        var touch = event.targetTouches[0];
+        move_event(touch);
+    });
+    </script>
+</body>
+
+</html>
